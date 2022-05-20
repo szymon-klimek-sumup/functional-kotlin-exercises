@@ -41,3 +41,18 @@ tailrec fun <A> isSorted(aa: List<A>, order: (A, A) -> Boolean): Boolean =
         !order(aa.head, aa.tail.head) -> false
         else -> isSorted(aa.tail, order)
     }
+
+/**
+ * Exercise 2.3 Currying: converts a function f of two arguments into a function with one argument that partially applies f
+ */
+fun <A, B, C> curry(f: (A, B) -> C): (A) -> (B) -> C = { a: A -> { b: B -> f(a, b) } }
+
+/**
+ * Exercise 2.4 "Un-currying": which reverses the transformation of curry
+ */
+fun <A, B, C> uncurry(f: (A) -> (B) -> C): (A, B) -> C = { a: A, b: B -> f(a)(b) }
+
+/**
+ * Exercise 2.5 Function composition - HOF that composes two functions
+ */
+fun <A, B, C> compose(f: (B) -> C, g: (A) -> B): (A) -> C = { a: A -> f(g(a)) }
